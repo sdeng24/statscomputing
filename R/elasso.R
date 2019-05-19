@@ -1,16 +1,31 @@
 #' Title
 #'
+#'Solve the an elastic net problem via coordinate descent
+#'
 #' @param X input matrix, of dimension nobs x nvars; each row is an observation vector
 #' @param y response variable
 #' @param nlambda The number oflambdavalues - default is 100
 #' @param alpha  The elasticnet mixing paramete
 #' @param thresh  Convergence threshold for coordinate descent.
-#' @param maxiter
+#' @param maxiter the maximal number of iterations in each coordinate descent
 #'
 #' @return length(lambda)matrix of coefficients
 #' @export
 #'
 #' @examples
+#'n=50
+#'p=20
+#'beta<-c(2,0,-2,0,1,0,-1,0,rep(0,12))
+#'X=matrix(rnorm(n*p),n,p)
+#'Y<-X%*%beta+rnorm(n)
+#'fit1<-elasso(X,Y,alpha=0.3)
+#'beta_cd<-t(as.matrix(fit1$beta))
+#'pct <- rowSums(abs(beta_cd))
+#'matplot(pct,beta_cd,type="l",lty=1,
+#'        xlab="|beta|_1",ylab="Coefficients")
+#'text(max(pct)+0.2,beta_cd[dim(beta_cd)[1],],1:p,col=1:p,cex=0.7)
+#'
+#'
 elasso<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
 {  n = nrow(X)
    p = ncol(X)
@@ -30,7 +45,7 @@ elasso<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
    if(alpha>0){
    lambda.max = max(abs(crossprod(xx, yy/n)))/alpha}
    else{
-   max(abs(crossprod(xx, yy/n)))/0.01
+     lambda.max=max(abs(crossprod(xx, yy/n)))/0.01
    }
 
    lambda.min.value=lambda.max*ratio

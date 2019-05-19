@@ -17,11 +17,26 @@ elasso(X, y, nlambda = 100, alpha, thresh = 1e-05, maxiter = 10000)
 
 \item{thresh}{Convergence threshold for coordinate descent.}
 
-\item{maxiter}{}
+\item{maxiter}{the maximal number of iterations in each coordinate descent}
 }
 \value{
 length(lambda)matrix of coefficients
 }
 \description{
-Title
+Solve the an elastic net problem via coordinate descent
+}
+\examples{
+n=50
+p=20
+beta<-c(2,0,-2,0,1,0,-1,0,rep(0,12))
+X=matrix(rnorm(n*p),n,p)
+Y<-X\%*\%beta+rnorm(n)
+fit1<-elasso(X,Y,alpha=0.3)
+beta_cd<-t(as.matrix(fit1$beta))
+pct <- rowSums(abs(beta_cd))
+matplot(pct,beta_cd,type="l",lty=1,
+       xlab="|beta|_1",ylab="Coefficients")
+text(max(pct)+0.2,beta_cd[dim(beta_cd)[1],],1:p,col=1:p,cex=0.7)
+
+
 }
