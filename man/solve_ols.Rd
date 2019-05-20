@@ -4,7 +4,7 @@
 \alias{solve_ols}
 \title{Title}
 \usage{
-solve_ols(A, v, method, ncores, iter.max = 10000)
+solve_ols(A, v, method, ncores = 1, iter.max = 10000)
 }
 \arguments{
 \item{A}{the linear matrix of coefficient}
