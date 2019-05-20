@@ -1,0 +1,73 @@
+---
+title: "vignette of hw2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette of hw2}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+To download and install the package, use `devtools`:
+
+```{r install_devtool, results = 'hide', message=FALSE}
+library(devtools)
+install_github("sdeng24/statscomputing")
+```
+
+You can subsequently load the package with the usual R commands:
+
+```{r load, message=FALSE}
+library(statscomputing)
+```
+## Solving Linear Equations
+
+For a given matrix A and b, solve the euqation $Ax=b$ by Gauss-Seidel("G-S") or Jacobi iterative method..For Jacobi method, you can do parallel computing by choosing ncores.(However, it's not recommended since it takes much longer for the commuting of different cores. ) It returns the relative error at each iteration and the final solution. Below is an example from hw1.
+
+```{r hw1.1}
+A<-HWGen(100,3)
+v<-rep(c(1,0),50)
+b<-A%*%v
+object1<-solve_ols(A,v,method="G-S")
+object1$solution
+```
+
+## Leveraging Regression
+
+Fitting a linear model with big data can be computationally expensive. Instead, we can use subsamples of the data to do the regression and still get a fairly good result. There can be different strategies for sampling. Here we consider uniform sampling and weighted sampling. Below is the example of hw2
+
+```{r hw1.2}
+n=500
+x<-rt(500,df=6)
+noise<-rnorm(500)
+y<--x+noise
+algo_leverage(y,x,r=100,method="weighted")
+```
+
+## Coordinate  Descent  for  Elastic  Net
+
+The objective in the function is $$\frac{1}{2n}\sum_{i=1}^n (y_ i-x_i^T\beta)^2+\lambda\frac{(1-\alpha)}{2}||\beta||_2^2+\lambda ||\beta||_1$$. We can assume $\frac{1}{n}\sum_{i=1}^nx_{ij}^2=1$. Then the coordinate descent algorithm updates the j-th coordinate by $$\hat\beta_j^k \gets \frac{S_{\lambda\alpha}(\frac{1}{n}\sum_{i=1}^n x_{ij}(y_i-x_i^T\beta^{(k-1)})+\beta^{(k-1)}_j) }{1+\lambda(1-\alpha),}$$
+
+where $S_{t}(x)$ is the softthresholding function $S_{t}(x)=\mathrm{sgn}(x)(|x|-\lambda)$.
+
+Below is the exmple of hw1, and we can use "plot_el" to draw the solution path.
+```{r hw1.3}
+library(MASS)
+n=50
+p=20
+beta<-c(2,0,-2,0,1,0,-1,0,rep(0,12))
+sigma<-diag(rep(1,p))
+sigma[c(1,2),c(2,1)]<-rep(0.8,2)
+sigma[c(5,6),c(6,5)]<-rep(0.8,2)
+X<-mvrnorm(n,rep(0,p),sigma)
+Y<-X%*%beta+rnorm(n)
+
+fit<-elnet_coord(X,Y,alpha=0.3)
+plot_el(fit)
+```
+
+
