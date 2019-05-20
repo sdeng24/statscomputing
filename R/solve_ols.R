@@ -24,7 +24,7 @@
 #' solve_ols(A,v,method="G-S")
 #'
 
-solve_ols<-function(A,v,method,ncores,iter.max=10000)
+solve_ols<-function(A,v,method,ncores=1,iter.max=10000)
 {
   n=dim(A)[2]
   b<-A%*%v
