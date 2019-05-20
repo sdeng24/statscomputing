@@ -7,5 +7,5 @@ devtools::install_github("sdeng24/statscomputing")
 library(statscomputing)
 ```
 
-Read the vignette by link file:///C:/Users/Siyi%20Deng/STCSI-6520/statscomputing/doc/hw2.html
+Read the vignette in the folder.
 
