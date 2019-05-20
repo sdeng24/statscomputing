@@ -26,7 +26,7 @@
 #'text(max(pct)+0.2,beta_cd[dim(beta_cd)[1],],1:p,col=1:p,cex=0.7)
 #'
 #'
-elnet_coord<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
+elnet_coord<-function(X,y,lambda = NULL,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
 {  n = nrow(X)
    p = ncol(X)
 
@@ -36,21 +36,38 @@ elnet_coord<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
 
    ym = mean(Y)
    yy = Y - ym
-   if(n>=p){
-    ratio=0.001
-    }
-   else{
-     ratio=0.01
-    }
-   if(alpha>0){
-   lambda.max = max(abs(crossprod(xx, yy/n)))/alpha*1.1}
-   else{
-     lambda.max=max(abs(crossprod(xx, yy/n)))/0.01*1.1
+
+   if (alpha > 1) {
+     warning("alpha >1; set to 1")
+     alpha = 1
+   }
+   if (alpha < 0) {
+     warning("alpha<0; set to 0")
+     alpha = 0
    }
 
-   lambda.min.value=lambda.max*ratio
-   lambda.s= exp(seq(log(lambda.max), log(lambda.min.value),
-                  length = nlambda))
+   if(is.null(lambda))
+   {
+    if(n>=p){
+     ratio=0.001
+     }
+    else{
+      ratio=0.01
+     }
+    if(alpha>0){
+     lambda.max = max(abs(crossprod(xx, yy/n)))/alpha*1.1}
+    else{
+     lambda.max=max(abs(crossprod(xx, yy/n)))/0.01*1.1
+    }
+     lambda.min.value=lambda.max*ratio
+     lambda.s= exp(seq(log(lambda.max), log(lambda.min.value),
+                       length = nlambda))
+   } else{
+     nlambda=1
+     lambda.s=c(lambda)
+   }
+
+
    beta_list = list()
    beta0<-rep(0,p)
 
