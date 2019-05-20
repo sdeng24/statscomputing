@@ -10,5 +10,5 @@ library(statscomputing)
 Read the vignette by using the command
 
 ```
-vignette('statscomputing')
+vignette('hw2')
 ```
