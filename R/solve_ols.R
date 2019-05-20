@@ -84,6 +84,7 @@ solve_ols<-function(A,v,method,ncores=1,iter.max=10000)
 #' @param alpha  the diagonal value
 #'
 #' @return 3 banded matrix
+#' @import Matrix
 #' @export
 #'
 #' @examples
