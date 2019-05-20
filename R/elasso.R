@@ -18,7 +18,7 @@
 #'beta<-c(2,0,-2,0,1,0,-1,0,rep(0,12))
 #'X=matrix(rnorm(n*p),n,p)
 #'Y<-X%*%beta+rnorm(n)
-#'fit1<-elasso(X,Y,alpha=0.3)
+#'fit1<-elnet_coord(X,Y,alpha=0.3)
 #'beta_cd<-t(as.matrix(fit1$beta))
 #'pct <- rowSums(abs(beta_cd))
 #'matplot(pct,beta_cd,type="l",lty=1,
@@ -26,7 +26,7 @@
 #'text(max(pct)+0.2,beta_cd[dim(beta_cd)[1],],1:p,col=1:p,cex=0.7)
 #'
 #'
-elasso<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
+elnet_coord<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
 {  n = nrow(X)
    p = ncol(X)
 
@@ -43,9 +43,9 @@ elasso<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
      ratio=0.01
     }
    if(alpha>0){
-   lambda.max = max(abs(crossprod(xx, yy/n)))/alpha}
+   lambda.max = max(abs(crossprod(xx, yy/n)))/alpha*1.1}
    else{
-     lambda.max=max(abs(crossprod(xx, yy/n)))/0.01
+     lambda.max=max(abs(crossprod(xx, yy/n)))/0.01*1.1
    }
 
    lambda.min.value=lambda.max*ratio
@@ -65,8 +65,8 @@ elasso<-function(X,y,nlambda=100,alpha,thresh=1e-05,maxiter=10000)
       for (j in 1:p){
         const = mean(yy - xx %*% beta0)
         r = yy - xx %*% beta0 - const
-        term1 = 2*(sum(r*xx[,j])/n + beta0[j])
-        beta0[j] = sthreshold(term1, lambda.s[i]* alpha)/(2*denominator)
+        term1 = (sum(r*xx[,j])/n + beta0[j])
+        beta0[j] = sthreshold(term1, lambda.s[i]* alpha)/denominator
        }
      }
     beta_list[[i]] = beta0
