@@ -93,6 +93,25 @@ elnet_coord<-function(X,y,lambda = NULL,nlambda=100,alpha,thresh=1e-05,maxiter=1
    return(list(beta = beta_e, lambda = lambda.s))
 }
 
+#' plot the elnet_coord
+#'
+#' @param fit the fitted object via elnet_coord
+#'
+#' @return a plot
+#' @export
+#'
+#' @examples
+#'
+plot_el<-function(fit){
+
+  beta_cd<-t(as.matrix(fit$beta))
+  pct <- rowSums(abs(beta_cd))
+
+  matplot(pct,beta_cd,type="l",lty=1,
+          xlab="|beta|_1",ylab="Coefficients")
+  text(max(pct)+0.2,beta_cd[dim(beta_cd)[1],],1:p,col=1:p,cex=0.7)
+}
+
 sthreshold <- function( x, lambda ) {
   #
   # Standard soft thresholding

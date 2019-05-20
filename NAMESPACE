@@ -3,6 +3,7 @@
 export(HWGen)
 export(algo_leverage)
 export(elnet_coord)
+export(plot_el)
 export(solve_ols)
 import(doParallel)
 import(foreach)
