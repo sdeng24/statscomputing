@@ -5,7 +5,7 @@
 #' @param X input matrix, of dimension nobs x nvars; each row is an observation vector
 #' @param y response variable
 #' @param lambda  default is null
-#' @param nlambda The number oflambdavalues - default is 100
+#' @param nlambda The number oflambda values - default is 100
 #' @param alpha  The elasticnet mixing paramete
 #' @param thresh  Convergence threshold for coordinate descent.
 #' @param maxiter the maximal number of iterations in each coordinate descent
@@ -49,24 +49,24 @@ elnet_coord<-function(X,y,lambda = NULL,nlambda=100,alpha,thresh=1e-05,maxiter=1
 
    if(is.null(lambda))
    {
-    if(n>=p){
-     ratio=0.001
-     }
-    else{
+     if(n>=p){
+      ratio=0.001
+      }
+     else{
       ratio=0.01
-     }
-    if(alpha>0){
+      }
+     if(alpha>0){
      lambda.max = max(abs(crossprod(xx, yy/n)))/alpha*1.1}
-    else{
+     else{
      lambda.max=max(abs(crossprod(xx, yy/n)))/0.01*1.1
-    }
+     }
      lambda.min.value=lambda.max*ratio
      lambda.s= exp(seq(log(lambda.max), log(lambda.min.value),
                        length = nlambda))
-   } else{
+   }else{
      nlambda=1
      lambda.s=c(lambda)
-   }
+    }
 
 
    beta_list = list()
