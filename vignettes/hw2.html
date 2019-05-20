@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>vignette of hw2</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">vignette of hw2</h1>
+
+
+
+<p>To download and install the package, use <code>devtools</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
+<span class="kw">install_github</span>(<span class="st">&quot;sdeng24/statscomputing&quot;</span>)</code></pre></div>
+<p>You can subsequently load the package with the usual R commands:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(statscomputing)</code></pre></div>
+<div id="solving-linear-equations" class="section level2">
+<h2>Solving Linear Equations</h2>
+<p>For a given matrix A and b, solve the euqation <span class="math inline">\(Ax=b\)</span> by Gauss-Seidel(“G-S”) or Jacobi iterative method..For Jacobi method, you can do parallel computing by choosing ncores.(However, it’s not recommended since it takes much longer for the commuting of different cores. ) It returns the relative error at each iteration and the final solution. Below is an example from hw1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A&lt;-<span class="kw">HWGen</span>(<span class="dv">100</span>,<span class="dv">3</span>)
+v&lt;-<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),<span class="dv">50</span>)
+b&lt;-A<span class="op">%*%</span>v
+object1&lt;-<span class="kw">solve_ols</span>(A,v,<span class="dt">method=</span><span class="st">&quot;G-S&quot;</span>)
+object1<span class="op">$</span>solution</code></pre></div>
+<pre><code>##   [1] 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1
+##  [36] 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+##  [71] 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0</code></pre>
+</div>
+<div id="leveraging-regression" class="section level2">
+<h2>Leveraging Regression</h2>
+<p>Fitting a linear model with big data can be computationally expensive. Instead, we can use subsamples of the data to do the regression and still get a fairly good result. There can be different strategies for sampling. Here we consider uniform sampling and weighted sampling. Below is the example of hw2</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n=<span class="dv">500</span>
+x&lt;-<span class="kw">rt</span>(<span class="dv">500</span>,<span class="dt">df=</span><span class="dv">6</span>)
+noise&lt;-<span class="kw">rnorm</span>(<span class="dv">500</span>)
+y&lt;-<span class="op">-</span>x<span class="op">+</span>noise
+<span class="kw">algo_leverage</span>(y,x,<span class="dt">r=</span><span class="dv">100</span>,<span class="dt">method=</span><span class="st">&quot;weighted&quot;</span>)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y[subsamples] ~ x[subsamples], weights = 1/h[subsamples])
+## 
+## Coefficients:
+##   (Intercept)  x[subsamples]  
+##      -0.07848       -1.01800</code></pre>
+</div>
+<div id="coordinate-descent-for-elastic-net" class="section level2">
+<h2>Coordinate Descent for Elastic Net</h2>
+<p>The objective in the function is <span class="math display">\[\frac{1}{2n}\sum_{i=1}^n (y_ i-x_i^T\beta)^2+\lambda\frac{(1-\alpha)}{2}||\beta||_2^2+\lambda ||\beta||_1\]</span>. We can assume <span class="math inline">\(\frac{1}{n}\sum_{i=1}^nx_{ij}^2=1\)</span>. Then the coordinate descent algorithm updates the j-th coordinate by <span class="math display">\[\hat\beta_j^k \gets \frac{S_{\lambda\alpha}(\frac{1}{n}\sum_{i=1}^n x_{ij}(y_i-x_i^T\beta^{(k-1)})+\beta^{(k-1)}_j) }{1+\lambda(1-\alpha),}\]</span></p>
+<p>where <span class="math inline">\(S_{t}(x)\)</span> is the softthresholding function <span class="math inline">\(S_{t}(x)=\mathrm{sgn}(x)(|x|-\lambda)\)</span>.</p>
+<p>Below is the exmple of hw1, and we can use “plot_el” to draw the solution path.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
+n=<span class="dv">50</span>
+p=<span class="dv">20</span>
+beta&lt;-<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>))
+sigma&lt;-<span class="kw">diag</span>(<span class="kw">rep</span>(<span class="dv">1</span>,p))
+sigma[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]&lt;-<span class="kw">rep</span>(<span class="fl">0.8</span>,<span class="dv">2</span>)
+sigma[<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>),<span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">5</span>)]&lt;-<span class="kw">rep</span>(<span class="fl">0.8</span>,<span class="dv">2</span>)
+X&lt;-<span class="kw">mvrnorm</span>(n,<span class="kw">rep</span>(<span class="dv">0</span>,p),sigma)
+Y&lt;-X<span class="op">%*%</span>beta<span class="op">+</span><span class="kw">rnorm</span>(n)
+
+fit&lt;-<span class="kw">elnet_coord</span>(X,Y,<span class="dt">alpha=</span><span class="fl">0.3</span>)
+<span class="kw">plot_el</span>(fit)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
