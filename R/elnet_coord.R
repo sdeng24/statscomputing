@@ -4,6 +4,7 @@
 #'
 #' @param X input matrix, of dimension nobs x nvars; each row is an observation vector
 #' @param y response variable
+#' @param lambda  default is null
 #' @param nlambda The number oflambdavalues - default is 100
 #' @param alpha  The elasticnet mixing paramete
 #' @param thresh  Convergence threshold for coordinate descent.

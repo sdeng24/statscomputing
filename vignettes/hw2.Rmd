@@ -16,7 +16,7 @@ To download and install the package, use `devtools`:
 
 ```{r install_devtool, results = 'hide', message=FALSE}
 library(devtools)
-devtools::install_github("sdeng24/statscomputing")
+install_github("sdeng24/statscomputing")
 ```
 
 You can subsequently load the package with the usual R commands:
