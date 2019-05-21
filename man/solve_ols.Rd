@@ -19,7 +19,8 @@ solve_ols(A, v, method, ncores = 1, iter.max = 10000)
 }
 \value{
 relative error: the relative error at each iteration
-        solution
+
+solution
 }
 \description{
 Apply Gauss-Seidel or Jacobi method to solve the linear equations
@@ -29,6 +30,6 @@ n=100
 alpha=3
 A<-HWGen(n,alpha)
 v<-rep(c(1,0),50)
-solve_ols(A,v,method="G-S")
+solve_ols(A,v,method="Jacobi",ncores=1)
 
 }

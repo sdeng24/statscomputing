@@ -9,8 +9,8 @@
 #' @param ncores  1 stands for non-parallel computing and usually ncores<=4
 #' @param iter.max the maximal number of iteration
 #'
-#' @return relative error: the relative error at each iteration
-#'         solution
+#' @return  relative error: the relative error at each iteration
+#' @return  solution
 #' @import  foreach
 #' @import  doParallel
 #'
@@ -21,7 +21,7 @@
 #' alpha=3
 #' A<-HWGen(n,alpha)
 #' v<-rep(c(1,0),50)
-#' solve_ols(A,v,method="G-S")
+#' solve_ols(A,v,method="Jacobi",ncores=1)
 #'
 
 solve_ols<-function(A,v,method,ncores=1,iter.max=10000)
@@ -58,10 +58,7 @@ solve_ols<-function(A,v,method,ncores=1,iter.max=10000)
      }
     }
     else{
-      m<-as.numeric(Sys.getenv("NUMBER_OF_PROCESSORS"))
-      ncores1=ifelse(ncores<m,ncores,m)
-      cl<-makeCluster(ncores1)
-      doParallel::registerDoParallel(cl)
+      doParallel::registerDoParallel(ncores)
        for(iter in 1:iter.max)
         {
           x0<-x

@@ -14,7 +14,7 @@ elnet_coord(X, y, lambda = NULL, nlambda = 100, alpha,
 
 \item{lambda}{default is null}
 
-\item{nlambda}{The number oflambdavalues - default is 100}
+\item{nlambda}{The number oflambda values - default is 100}
 
 \item{alpha}{The elasticnet mixing paramete}
 
